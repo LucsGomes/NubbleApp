@@ -1,15 +1,11 @@
 import React from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {IconProps} from '@components';
-import {
-  LoginScreen,
-  SignUpScreen,
-  SuccessScreen,
-  ForgotPasswordScreen,
-} from '@screens';
+
+import {AppStack} from './AppStack';
+import {AuthStack} from './AuthStack';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
@@ -22,23 +18,13 @@ export type RootStackParamList = {
   ForgotPasswordScreen: undefined;
   // TODO: Success Screen: icon, title, description
 };
-const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function Router() {
+  const authenticated = true;
+
   return (
     <NavigationContainer>
-      {/* Telas do app */}
-      <Stack.Navigator
-        screenOptions={{headerShown: false, fullScreenGestureEnabled: true}}
-        initialRouteName="LoginScreen">
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-        <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
-        <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-        />
-      </Stack.Navigator>
+      {authenticated ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }
