@@ -1,17 +1,20 @@
 import React from 'react';
 
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AppStackParamList} from 'src/routes/AppStack';
+import {Button, Screen, Text} from '@components';
+import {AppScreenProps} from '@routes';
 
-import {Screen, Text} from '@components';
-
-type ScreenProps = NativeStackScreenProps<AppStackParamList, 'SettingsScreen'>;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function SettingsScreen(props: ScreenProps) {
+export function SettingsScreen({navigation}: AppScreenProps<'SettingsScreen'>) {
   return (
     <Screen canGoBack>
       <Text preset="headingSmall">Setting screen</Text>
+      <Button
+        title="New Post"
+        onPress={() =>
+          navigation.navigate('AppTabNavigator', {
+            screen: 'NewPostScreen',
+          })
+        }
+      />
     </Screen>
   );
 }
